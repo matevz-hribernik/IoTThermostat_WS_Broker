@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>WS IoT Hribernik</title>
+
+
+    <!-- Bootstrap core CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/files/starter-template.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="/">WEBSOCKET IoT</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">PC Client<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main role="main" class="container">
+    <div class="starter-template">
+        <div class="row justify-content-end">
+          <div class="col-6 col-md-4">
+          <div class="btn-group mr-2 col col-lg-2" role="group" aria-label="Second group">
+              <button type="button" id = "WS_toggle" class="time_btn btn btn-secondary active" value="10000">WebSocket</button>
+              <button type="button" class="time_btn btn_nows btn btn-secondary " value="10000">Off</button>
+          </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-dark btn-sm"  data-toggle="modal" data-target="#exampleModal">Spremeni nastaviteve</button>
+        <div id="recive" style="height: 100px; border:solid gray 1px">
+
+        </div>
+        <div>
+            <div class="md-form">
+                <label for="text_send">Pošiljanje</label>
+                <textarea id="text_send" class="md-textarea form-control" rows="3"></textarea>
+            </div>
+          <!--<div><textarea id="text_send"></textarea></div>-->
+          <button type="button" class="btn btn-dark btn" id="WS_SEND">Pošlji</button>
+        </div>
+        <!--<h2>Trenutno stanje</h2>
+        <h3 id="stanje">Ogrevanje</h3>
+        <h4 id="stanje_change">19,3ºC ->
+            22,0ºC</h4>
+        <h5>Trenutna temperatura</h5>
+        <h3 id="moment_temp">19,3ºC</h3>
+        <h5>Temperatura nastavljena</h5>
+        <h3 id="set_temp"><span>22,0ºC</span>  <button type="button" class="btn btn-dark btn-sm"  data-toggle="modal" data-target="#exampleModal">Spremeni</button></h3>
+        <div class="graf"><canvas id="myChart" width="400" height="400"></canvas></div>-->
+    </div>
+
+</main><!-- /.container -->
+<div class="modal fade " tabindex="-1" id="exampleModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Določi povezavo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Moj ID</span>
+                </div>
+                <input type="text" class="form-control" id="id" aria-label="Amount (to the nearest dollar)">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="generate_btn">Generate</button>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Connect ID</span>
+              </div>
+              <input type="text" class="form-control" id="conn_id" aria-label="Amount (to the nearest dollar)">
+              <div class="input-group-append">
+                <!--<span class="input-group-text">ºC</span>-->
+              </div>
+          </div>
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Geslo</span>
+              </div>
+              <input type="password" class="form-control" id="pass" aria-label="Amount (to the nearest dollar)">
+              <div class="input-group-append">
+                <!--<span class="input-group-text">ºC</span>-->
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="save" class="btn btn-primary" data-dismiss="modal">Shrani</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"><\/script>')</script>-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+<script src="/files/script.js"></script>
+</body></html>

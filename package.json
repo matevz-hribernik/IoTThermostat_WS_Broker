@@ -1,0 +1,16 @@
+{
+  "name": "FirePlace",
+  "version": "0.0.1",
+  "description": "Aplikacija za termostat",
+  "main": "index.js",
+  "author": "Matevz",
+  "license": "MIT",
+  "dependencies": {
+    "aes-js": "^3.1.2",
+    "chart.js": "^2.8.0",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "ws": "^7.0.0"
+  }
+}
